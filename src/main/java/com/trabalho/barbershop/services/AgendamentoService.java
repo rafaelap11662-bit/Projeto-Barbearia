@@ -1,4 +1,5 @@
 package com.trabalho.barbershop.services;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.trabalho.barbershop.dto.AgendamentoResponseDTO;
@@ -119,4 +120,25 @@ public class AgendamentoService {
             "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
         );
     }
+
+    public List<String> listarHorariosDisponiveis(
+    String data
+) {
+
+    List<String> horarios = new ArrayList<>(
+        horariosPadrao()
+    );
+
+    List<Agendamento> ocupados =
+        agendamentoRepository.findByData(data);
+
+    for (Agendamento agendamento : ocupados) {
+
+        horarios.remove(
+            agendamento.getHorario()
+        );
+    }
+
+    return horarios;
+}
 }

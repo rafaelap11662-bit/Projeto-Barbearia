@@ -50,8 +50,10 @@ public class AgendamentoController {
     }
 
     @GetMapping("/horarios")
-    public ResponseEntity<List<String>> horariosPadrao() {
-        List<String> horarios = service.horariosPadrao();
+    public ResponseEntity<List<String>> listarHorariosDisponiveis(@RequestParam String data) {
+
+        List<String> horarios = service.listarHorariosDisponiveis(data);
+
         return ResponseEntity.ok(horarios);
     }
 
