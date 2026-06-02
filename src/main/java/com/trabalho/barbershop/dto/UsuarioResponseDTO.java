@@ -1,25 +1,25 @@
 package com.trabalho.barbershop.dto;
 import java.io.Serial;
 import java.io.Serializable;
-import com.trabalho.barbershop.models.Barbeiro;
+import com.trabalho.barbershop.models.Usuario;
 
-public class BarbeiroResponseDTO implements Serializable{
+public class UsuarioResponseDTO implements Serializable{
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;              // identificador único do barbeiro
-    private String nome;            // nome do barbeiro
+    private Long id;              // identificador único do usuário
+    private String nome;            // nome do usuário
     private String telefone;        // telefone de contato
     private String email;           // email de contato
 
-    public BarbeiroResponseDTO() {
+    public UsuarioResponseDTO() {
     }
 
-    public BarbeiroResponseDTO(Barbeiro barbeiro) {
-        id = barbeiro.getId();
-        nome = barbeiro.getNome();
-        telefone = barbeiro.getTelefone();
-        email = barbeiro.getEmail();
+    public UsuarioResponseDTO(Usuario usuario) {
+        id = usuario.getId();
+        nome = usuario.getNome();
+        telefone = usuario.getTelefone();
+        email = usuario.getEmail();
     }
 
     public static long getSerialversionuid() {

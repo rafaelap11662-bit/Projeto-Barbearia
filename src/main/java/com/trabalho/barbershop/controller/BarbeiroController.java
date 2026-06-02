@@ -3,8 +3,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.trabalho.barbershop.dto.BarbeiroRequestDTO;
-import com.trabalho.barbershop.dto.BarbeiroResponseDTO;
+import com.trabalho.barbershop.dto.UsuarioRequestDTO;
+import com.trabalho.barbershop.dto.UsuarioResponseDTO;
 import com.trabalho.barbershop.services.BarbeiroService;
 
 import jakarta.validation.Valid;
@@ -20,14 +20,14 @@ public class BarbeiroController {
     }
 
     @PostMapping
-    public ResponseEntity<BarbeiroResponseDTO> salvarBarbeiro(@RequestBody @Valid BarbeiroRequestDTO dto) {
-        BarbeiroResponseDTO dtoSalvar = service.salvar(dto);
+    public ResponseEntity<UsuarioResponseDTO> salvarBarbeiro(@RequestBody @Valid UsuarioRequestDTO dto) {
+        UsuarioResponseDTO dtoSalvar = service.salvar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(dtoSalvar);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<BarbeiroResponseDTO> buscarPorId(@PathVariable Long id) {
-        BarbeiroResponseDTO obj = service.buscarPorId(id);
+    public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
+        UsuarioResponseDTO obj = service.buscarPorId(id);
         return ResponseEntity.ok(obj);
     }
 
@@ -38,14 +38,14 @@ public class BarbeiroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BarbeiroResponseDTO>> listarTodos() {
-        List<BarbeiroResponseDTO> listDto = service.listarTodos();
+    public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
+        List<UsuarioResponseDTO> listDto = service.listarTodos();
         return ResponseEntity.ok(listDto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BarbeiroResponseDTO> atualizarBarbeiro(@PathVariable Long id, @RequestBody @Valid BarbeiroRequestDTO dto) {
-        BarbeiroResponseDTO dtoAtualizado = service.atualizar(id, dto);
+    public ResponseEntity<UsuarioResponseDTO> atualizarBarbeiro(@PathVariable Long id, @RequestBody @Valid UsuarioRequestDTO dto) {
+        UsuarioResponseDTO dtoAtualizado = service.atualizar(id, dto);
         return ResponseEntity.ok(dtoAtualizado);
     }
 }

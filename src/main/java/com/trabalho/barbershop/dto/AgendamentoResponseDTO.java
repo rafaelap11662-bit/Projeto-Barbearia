@@ -14,18 +14,18 @@ public class AgendamentoResponseDTO implements Serializable {
     private String horario;                 // data e hora do agendamento
     private String clienteNome;             // nome do cliente
     private String clienteTelefone;         // telefone do cliente
-    private BarbeiroResponseDTO barbeiro;   // informações do barbeiro
+    private UsuarioResponseDTO usuario;   // informações do barbeiro
     
     public AgendamentoResponseDTO() {
     }
     
-    public AgendamentoResponseDTO(Agendamento agendamento) {
+    public AgendamentoResponseDTO(Agendamento agendamento) { 
         this.id = agendamento.getId();
         this.data = agendamento.getData().toString();
         this.horario = agendamento.getHorario().toString();
         this.clienteNome = agendamento.getNomeCliente();
         this.clienteTelefone = agendamento.getTelefoneCliente();
-        this.barbeiro = new BarbeiroResponseDTO(agendamento.getBarbeiro());
+        this.usuario = new UsuarioResponseDTO(agendamento.getUsuario());
     }
 
     public static long getSerialversionuid() {
@@ -72,12 +72,12 @@ public class AgendamentoResponseDTO implements Serializable {
         this.clienteTelefone = clienteTelefone;
     }
 
-    public BarbeiroResponseDTO getBarbeiro() {
-        return barbeiro;
+    public UsuarioResponseDTO getUsuarioResponseDTO() {
+        return usuario;
     }
 
-    public void setBarbeiro(BarbeiroResponseDTO barbeiro) {
-        this.barbeiro = barbeiro;
+    public void setUsuario(UsuarioResponseDTO usuario) {
+        this.usuario = usuario;
     }
 
 }
