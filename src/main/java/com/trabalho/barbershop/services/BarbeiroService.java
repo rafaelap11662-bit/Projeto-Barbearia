@@ -2,10 +2,10 @@ package com.trabalho.barbershop.services;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-import com.trabalho.barbershop.dto.BarbeiroRequestDTO;
-import com.trabalho.barbershop.dto.BarbeiroResponseDTO;
-import com.trabalho.barbershop.models.Barbeiro;
-import com.trabalho.barbershop.repositories.BarbeiroRepository;
+import com.trabalho.barbershop.dto.UsuarioRequestDTO;
+import com.trabalho.barbershop.dto.UsuarioResponseDTO;
+import com.trabalho.barbershop.models.Usuario;
+import com.trabalho.barbershop.repositories.UsuarioRepository;
 import com.trabalho.barbershop.services.exceptions.DatabaseException;
 
 import jakarta.transaction.Transactional;
@@ -13,36 +13,36 @@ import jakarta.transaction.Transactional;
 @Service
 public class BarbeiroService {
 
-    private final BarbeiroRepository barbeiroRepository;
+    private final UsuarioRepository barbeiroRepository;
 
-    public BarbeiroService(BarbeiroRepository barbeiroRepository) {
+    public BarbeiroService(UsuarioRepository barbeiroRepository) {
         this.barbeiroRepository = barbeiroRepository;
     }
 
     @Transactional
-    public BarbeiroResponseDTO salvar(BarbeiroRequestDTO dto) {                         
+    public UsuarioResponseDTO salvar(UsuarioRequestDTO dto) {                         
         if (barbeiroRepository.findByTelefone(dto.getTelefone()).isPresent()) {             
             throw new DatabaseException("Já existe um barbeiro com esse telefone.");   
         }
 
-        Barbeiro barbeiro = new Barbeiro();
+        Usuario barbeiro = new Usuario();
         barbeiro.setNome(dto.getNome());
         barbeiro.setTelefone(dto.getTelefone());
         barbeiro.setEmail(dto.getEmail());
-        Barbeiro salvo = barbeiroRepository.save(barbeiro);
-        return new BarbeiroResponseDTO(salvo);
+        Usuario salvo = barbeiroRepository.save(barbeiro);
+        return new UsuarioResponseDTO(salvo);
     }
 
-    public BarbeiroResponseDTO buscarPorId(Long id) {
-            Barbeiro barbeiro = barbeiroRepository.findById(id)
+    public UsuarioResponseDTO buscarPorId(Long id) {
+            Usuario barbeiro = barbeiroRepository.findById(id)
                     .orElseThrow(() -> new DatabaseException("Barbeiro não encontrado com id: " + id));
 
-            return new BarbeiroResponseDTO(barbeiro);
+            return new UsuarioResponseDTO(barbeiro);
     }
 
-    public List<BarbeiroResponseDTO> listarTodos() {
-        List<Barbeiro> list = barbeiroRepository.findAll();
-        return list.stream().map(BarbeiroResponseDTO::new).collect(Collectors.toList());
+    public List<UsuarioResponseDTO> listarTodos() {
+        List<Usuario> list = barbeiroRepository.findAll();
+        return list.stream().map(UsuarioResponseDTO::new).collect(Collectors.toList());
     }
 
     public void deletar(Long id) {
@@ -51,8 +51,8 @@ public class BarbeiroService {
         barbeiroRepository.deleteById(id);
     }
 
-    public BarbeiroResponseDTO atualizar(Long id, BarbeiroRequestDTO dto) {
-        Barbeiro barbeiro = barbeiroRepository.findById(id)
+    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
+        Usuario barbeiro = barbeiroRepository.findById(id)
                 .orElseThrow(() -> new DatabaseException("Barbeiro não encontrado com id: " + id));
 
         if (!barbeiro.getTelefone().equals(dto.getTelefone()) && barbeiroRepository.findByTelefone(dto.getTelefone()).isPresent()) { 
@@ -62,7 +62,7 @@ public class BarbeiroService {
         barbeiro.setNome(dto.getNome());
         barbeiro.setTelefone(dto.getTelefone());
         barbeiro.setEmail(dto.getEmail());
-        Barbeiro atualizado = barbeiroRepository.save(barbeiro);
-        return new BarbeiroResponseDTO(atualizado);
+        Usuario atualizado = barbeiroRepository.save(barbeiro);
+        return new UsuarioResponseDTO(atualizado);
     }
 }

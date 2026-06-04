@@ -41,8 +41,8 @@ public class Agendamento implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "barbeiro_id")
-    private Barbeiro barbeiro;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;                // referência ao usuário que fez o agendamento
 
     @ManyToMany
     @JoinTable(name = "agendamento_servicos", joinColumns = @JoinColumn(name = "agendamento_id"), inverseJoinColumns = @JoinColumn(name = "servico_id")) 
@@ -94,12 +94,12 @@ public class Agendamento implements Serializable {
         this.horario = horario;
     }
 
-    public Barbeiro getBarbeiro() {
-        return barbeiro;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setBarbeiro(Barbeiro barbeiro) {
-        this.barbeiro = barbeiro;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public List<Servico> getServicos() {

@@ -4,10 +4,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.trabalho.barbershop.dto.AgendamentoResponseDTO;
 import com.trabalho.barbershop.models.Agendamento;
-import com.trabalho.barbershop.models.Barbeiro;
+import com.trabalho.barbershop.models.Usuario;
 import com.trabalho.barbershop.models.Servico;
 import com.trabalho.barbershop.repositories.AgendamentoRepository;
-import com.trabalho.barbershop.repositories.BarbeiroRepository;
+import com.trabalho.barbershop.repositories.UsuarioRepository;
 import com.trabalho.barbershop.repositories.ServicoRepository;
 import com.trabalho.barbershop.services.exceptions.DatabaseException;
 import com.trabalho.barbershop.dto.AgendamentoRequestDTO;   
@@ -17,26 +17,25 @@ import jakarta.transaction.Transactional;
 public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
-    private final BarbeiroRepository barbeiroRepository;
+    private final UsuarioRepository barbeiroRepository;
     private final ServicoRepository servicoRepository;
 
-    public AgendamentoService(AgendamentoRepository agendamentoRepository, BarbeiroRepository barbeiroRepository, ServicoRepository servicoRepository) { 
+    public AgendamentoService(AgendamentoRepository agendamentoRepository, UsuarioRepository barbeiroRepository, ServicoRepository servicoRepository) { 
         this.agendamentoRepository = agendamentoRepository;
         this.barbeiroRepository = barbeiroRepository;
         this.servicoRepository = servicoRepository;
     }
 
     @Transactional
-    public AgendamentoResponseDTO salvar(AgendamentoRequestDTO dto) {
-        Barbeiro barbeiro = barbeiroRepository.findById(dto.getBarbeiroId())
+    public AgendamentoResponseDTO salvar(AgendamentoRequestDTO dto) { 
+        Usuario barbeiro = barbeiroRepository.findById(dto.getBarbeiroId())
                 .orElseThrow(() -> new DatabaseException("Barbeiro não encontrado"));
-
 
         List<Servico> servicos = servicoRepository.findAllById(dto.getServicosIds());
 
 
 
-        boolean ocupado = agendamentoRepository.existsByBarbeiroAndDataAndHorario(
+        boolean ocupado = agendamentoRepository.existsByUsuarioAndDataAndHorario(
             barbeiro,
             dto.getData(),
             dto.getHorario()
@@ -50,7 +49,7 @@ public class AgendamentoService {
         agendamento.setTelefoneCliente(dto.getTelefoneCliente());
         agendamento.setData(dto.getData());
         agendamento.setHorario(dto.getHorario());
-        agendamento.setBarbeiro(barbeiro);
+        agendamento.setUsuario(barbeiro);
         agendamento.setServicos(servicos);
 
         Agendamento salvo = agendamentoRepository.save(agendamento);
@@ -87,14 +86,14 @@ public class AgendamentoService {
     @Transactional
     public AgendamentoResponseDTO atualizar(Long id, AgendamentoRequestDTO dto) {
         Agendamento agendamento = agendamentoRepository.findById(id)
-                .orElseThrow(() -> new DatabaseException("Agendamento não encontrado com id: " + id));
+                .orElseThrow(() -> new DatabaseException("Agendamento não encontrado com id: " + id)); 
 
-        Barbeiro barbeiro = barbeiroRepository.findById(dto.getBarbeiroId())
+        Usuario barbeiro = barbeiroRepository.findById(dto.getBarbeiroId())
                 .orElseThrow(() -> new DatabaseException("Barbeiro não encontrado"));
 
         List<Servico> servicos = servicoRepository.findAllById(dto.getServicosIds());
 
-        boolean ocupado = agendamentoRepository.existsByBarbeiroAndDataAndHorarioAndIdNot(
+        boolean ocupado = agendamentoRepository.existsByUsuarioAndDataAndHorarioAndIdNot(
             barbeiro,
             dto.getData(),
             dto.getHorario(),
@@ -108,7 +107,7 @@ public class AgendamentoService {
         agendamento.setTelefoneCliente(dto.getTelefoneCliente());
         agendamento.setData(dto.getData());
         agendamento.setHorario(dto.getHorario());
-        agendamento.setBarbeiro(barbeiro);
+        agendamento.setUsuario(barbeiro);
         agendamento.setServicos(servicos);
 
         Agendamento atualizado = agendamentoRepository.save(agendamento);
