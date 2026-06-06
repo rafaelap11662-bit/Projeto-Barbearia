@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbearia — Agendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">✂</span>
+        <span class="logo-text">Barbearia</span>
+      </div>
+      <div class="header-right">
+        <span class="user-name" id="user-name"></span>
+        <button class="btn btn-ghost btn-sm" id="btn-logout">Sair</button>
+        <a href="index.html" class="btn btn-ghost btn-sm">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="page-cliente">
+      <div class="page-header">
+        <h1>Agende seu horário</h1>
+        <p>Escolha o barbeiro, serviços e confirme</p>
+      </div>
+
+      <form class="form-card" id="form-cliente" novalidate>
+        <div class="form-group"><label>Seu nome</label><input type="text" id="nomeCliente" placeholder="Nome completo" required /></div>
+        <div class="form-group"><label>Telefone / WhatsApp</label><input type="tel" id="telefoneCliente" placeholder="(00) 00000-0000" required /></div>
+
+        <div class="form-group">
+          <label>Barbeiro</label>
+          <div class="barbeiros-grid" id="barbeiros-grid"><p class="loading-txt">Carregando...</p></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group"><label>Data</label><input type="date" id="data" required /></div>
+          <div class="form-group"><label>Horário</label><select id="horario" required><option value="">Selecione a data primeiro</option></select></div>
+        </div>
+
+        <div class="form-group">
+          <label>Serviços</label>
+          <div class="servicos-grid" id="servicos-grid"><p class="loading-txt">Carregando serviços...</p></div>
+        </div>
+
+        <div class="resumo" id="resumo" style="display:none">
+          <h3>Resumo</h3>
+          <div class="resumo-items" id="resumo-items"></div>
+          <div class="resumo-total" id="resumo-total"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Confirmar Agendamento</button>
+      </form>
+
+      <!-- Confirmação -->
+      <div class="confirm-box" id="confirm-box" style="display:none">
+        <div class="confirm-icon">✓</div>
+        <h2>Agendamento confirmado!</h2>
+        <p id="confirm-msg"></p>
+        <button class="btn btn-primary" id="btn-novo-agend">Fazer outro agendamento</button>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+  <script src="cliente.js"></script>
+</body>
+</html>

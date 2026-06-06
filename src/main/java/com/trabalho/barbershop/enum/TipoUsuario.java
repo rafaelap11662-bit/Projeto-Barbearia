@@ -1,4 +1,5 @@
 public enum TipoUsuario {
     ADMINISTRADOR,
-    BARBEIRO
+    BARBEIRO,
+    CLIENTE
 }

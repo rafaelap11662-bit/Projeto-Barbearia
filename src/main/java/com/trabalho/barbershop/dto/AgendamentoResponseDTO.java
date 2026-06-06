@@ -25,7 +25,9 @@ public class AgendamentoResponseDTO implements Serializable {
         this.horario = agendamento.getHorario().toString();
         this.clienteNome = agendamento.getNomeCliente();
         this.clienteTelefone = agendamento.getTelefoneCliente();
-        this.usuario = new UsuarioResponseDTO(agendamento.getUsuario());
+        if (agendamento.getUsuario() != null) {
+            this.usuario = new UsuarioResponseDTO(agendamento.getUsuario());
+        }
     }
 
     public static long getSerialversionuid() {
@@ -72,9 +74,10 @@ public class AgendamentoResponseDTO implements Serializable {
         this.clienteTelefone = clienteTelefone;
     }
 
-    public UsuarioResponseDTO getUsuarioResponseDTO() {
+    public UsuarioResponseDTO getUsuario() {
         return usuario;
     }
+
 
     public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
