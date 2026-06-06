@@ -68,9 +68,7 @@ async function fazerLogin() {
 }
 
 function redirecionarPorTipo(tipo) {
-  if (tipo === 'ADMINISTRADOR') {
-    window.location.href = 'admin.html';
-  } else if (tipo === 'BARBEIRO') {
-    window.location.href = 'barbeiro.html';
-  }
+  if (tipo === 'ADMINISTRADOR') window.location.href = 'admin.html';
+  else if (tipo === 'BARBEIRO')  window.location.href = 'barbeiro.html';
+  else if (tipo === 'CLIENTE')   window.location.href = 'cliente.html';
 }

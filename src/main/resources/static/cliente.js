@@ -1,34 +1,36 @@
 /* ============================================================
-   cliente.js — Página pública de agendamento
-   Sem login, qualquer pessoa pode agendar
+   cliente.js — Página do Cliente (requer login)
    ============================================================ */
 
 let barbeiroPick = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+  const usuario = getUsuario();
+  if (!usuario || usuario.tipoUsuario !== 'CLIENTE') {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  document.getElementById('user-name').textContent = usuario.nome;
+  document.getElementById('btn-logout').addEventListener('click', logout);
+
   const hoje = new Date().toISOString().split('T')[0];
   const dataInput = document.getElementById('data');
   dataInput.min   = hoje;
   dataInput.value = hoje;
 
-  // Carrega barbeiros como cards selecionáveis
   await carregarBarbeiros();
-
-  // Carrega serviços
   await carregarServicosCheck('servicos-grid');
 
-  // Ao mudar data atualiza horários
   dataInput.addEventListener('change', () => {
     carregarHorarios(dataInput.value, barbeiroPick);
   });
 
   await carregarHorarios(hoje, null);
 
-  // Submit
   document.getElementById('form-cliente').addEventListener('submit', enviarAgendamento);
 
-  // Botão "novo agendamento" na tela de confirmação
   document.getElementById('btn-novo-agend').addEventListener('click', () => {
     document.getElementById('confirm-box').style.display = 'none';
     document.getElementById('form-cliente').style.display = 'block';
@@ -42,7 +44,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// ── Barbeiros como cards ───────────────────────────────────────
 async function carregarBarbeiros() {
   const grid = document.getElementById('barbeiros-grid');
   try {
@@ -74,14 +75,13 @@ async function carregarBarbeiros() {
   }
 }
 
-// ── Envio ──────────────────────────────────────────────────────
 async function enviarAgendamento(e) {
   e.preventDefault();
 
-  const nome      = document.getElementById('nomeCliente').value.trim();
-  const telefone  = document.getElementById('telefoneCliente').value.trim();
-  const data      = document.getElementById('data').value;
-  const horario   = document.getElementById('horario').value;
+  const nome       = document.getElementById('nomeCliente').value.trim();
+  const telefone   = document.getElementById('telefoneCliente').value.trim();
+  const data       = document.getElementById('data').value;
+  const horario    = document.getElementById('horario').value;
   const servicosIds = [...document.querySelectorAll('#servicos-grid input:checked')].map(cb => Number(cb.value));
 
   if (!nome || !telefone) { showToast('Informe seu nome e telefone.', 'error'); return; }
@@ -105,7 +105,6 @@ async function enviarAgendamento(e) {
       }),
     });
 
-    // Mostra confirmação
     const nomeBarbeiro = document.querySelector('.barbeiro-card-check.selected .bc-nome')?.textContent ?? '';
     document.getElementById('confirm-msg').textContent =
       `${nome}, seu horário com ${nomeBarbeiro} está marcado para ${formatDate(data)} às ${horario}.`;
