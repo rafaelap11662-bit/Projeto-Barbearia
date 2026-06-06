@@ -19,16 +19,18 @@ public class Usuario implements Serializable {
     private String nome;            // nome do usuário
     private String telefone;        // telefone de contato
     private String email;           // email de contato
-    private String tipoUsuario;    // tipo do usuário (ADMINISTRADOR ou BARBEIRO)
+    private String tipoUsuario;    // tipo do usuário (ADMINISTRADOR, BARBEIRO ou CLIENTE)
+    private String senha;          // senha para autenticação
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String telefone, String email, String tipoUsuario) {
+    public Usuario(String nome, String telefone, String email, String tipoUsuario, String senha) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -61,6 +63,14 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getTipoUsuario() {

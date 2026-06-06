@@ -3,202 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barbearia — Sistema de Agendamento</title>
+  <title>Barbearia — Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="login-body">
 
-  <!-- NAV -->
-  <header class="header">
-    <div class="header-inner">
-      <div class="logo">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
         <span class="logo-icon">✂</span>
-        <span class="logo-text">Barbershop</span>
+        <span class="logo-text">Barbearia</span>
       </div>
-      <nav class="nav" id="nav">
-        <a href="#" class="nav-link active" data-page="agendar">Agendar</a>
-        <a href="#" class="nav-link" data-page="agendamentos">Agendamentos</a>
-        <a href="#" class="nav-link" data-page="servicos">Serviços</a>
-        <a href="#" class="nav-link" data-page="barbeiros">Barbeiros</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+      <p class="login-sub">Acesse o sistema</p>
 
-  <main class="main">
-
-    <!-- ===== PAGE: AGENDAR ===== -->
-    <section class="page active" id="page-agendar">
-      <div class="page-header">
-        <h1>Novo Agendamento</h1>
-        <p>Escolha seu barbeiro, serviços e horário</p>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" />
       </div>
-
-      <form class="form-card" id="form-agendamento" novalidate>
-
-        <div class="form-group">
-          <label>Nome completo</label>
-          <input type="text" id="nomeCliente" placeholder="Seu nome" required />
+      <div class="form-group">
+        <label>Senha</label>
+        <div class="input-pw">
+          <input type="password" id="login-senha" placeholder="••••••••" />
+          <button class="pw-toggle" id="pw-toggle" type="button">👁</button>
         </div>
-
-        <div class="form-group">
-          <label>Telefone / WhatsApp</label>
-          <input type="tel" id="telefoneCliente" placeholder="(00) 00000-0000" required />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Data</label>
-            <input type="date" id="data" required />
-          </div>
-          <div class="form-group">
-            <label>Horário</label>
-            <select id="horario" required>
-              <option value="">Selecione a data primeiro</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Barbeiro</label>
-          <select id="barbeiroId" required>
-            <option value="">Carregando...</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Serviços</label>
-          <div class="servicos-grid" id="servicos-grid">
-            <p class="loading-txt">Carregando serviços...</p>
-          </div>
-        </div>
-
-        <div class="resumo" id="resumo" style="display:none">
-          <h3>Resumo</h3>
-          <div class="resumo-items" id="resumo-items"></div>
-          <div class="resumo-total" id="resumo-total"></div>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-full">
-          Confirmar Agendamento
-        </button>
-      </form>
-    </section>
-
-    <!-- ===== PAGE: AGENDAMENTOS ===== -->
-    <section class="page" id="page-agendamentos">
-      <div class="page-header">
-        <h1>Agendamentos</h1>
-        <p>Todos os agendamentos cadastrados</p>
-      </div>
-      <div class="toolbar">
-        <button class="btn btn-sm" id="btn-refresh-agend">↻ Atualizar</button>
-      </div>
-      <div id="lista-agendamentos" class="card-list">
-        <p class="loading-txt">Carregando...</p>
-      </div>
-    </section>
-
-    <!-- ===== PAGE: SERVIÇOS ===== -->
-    <section class="page" id="page-servicos">
-      <div class="page-header">
-        <h1>Serviços</h1>
-        <p>Gerencie os serviços oferecidos</p>
-      </div>
-      <div class="toolbar">
-        <button class="btn btn-primary btn-sm" id="btn-novo-servico">+ Novo Serviço</button>
       </div>
 
-      <div class="form-card collapsible" id="form-servico-wrap" style="display:none">
-        <h2 id="form-servico-title">Novo Serviço</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" id="s-nome" placeholder="Ex: Corte Degradê" />
-          </div>
-          <div class="form-group">
-            <label>Preço (R$)</label>
-            <input type="number" id="s-preco" placeholder="35.00" step="0.01" min="0" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Duração (min)</label>
-            <input type="number" id="s-duracao" placeholder="30" min="1" />
-          </div>
-          <div class="form-group">
-            <label>Descrição</label>
-            <input type="text" id="s-descricao" placeholder="Descrição opcional" />
-          </div>
-        </div>
-        <div class="form-actions">
-          <button class="btn btn-primary" id="btn-salvar-servico">Salvar</button>
-          <button class="btn btn-ghost" id="btn-cancelar-servico">Cancelar</button>
-        </div>
-        <input type="hidden" id="s-id" />
-      </div>
+      <button class="btn btn-primary btn-full" id="btn-login">Entrar</button>
 
-      <div id="lista-servicos" class="card-list">
-        <p class="loading-txt">Carregando...</p>
-      </div>
-    </section>
+      <div class="login-divider">ou</div>
 
-    <!-- ===== PAGE: BARBEIROS ===== -->
-    <section class="page" id="page-barbeiros">
-      <div class="page-header">
-        <h1>Barbeiros</h1>
-        <p>Gerencie a equipe</p>
-      </div>
-      <div class="toolbar">
-        <button class="btn btn-primary btn-sm" id="btn-novo-barbeiro">+ Novo Barbeiro</button>
-      </div>
-
-      <div class="form-card collapsible" id="form-barbeiro-wrap" style="display:none">
-        <h2 id="form-barbeiro-title">Novo Barbeiro</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" id="b-nome" placeholder="Nome completo" />
-          </div>
-          <div class="form-group">
-            <label>Telefone</label>
-            <input type="tel" id="b-telefone" placeholder="(00) 00000-0000" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" id="b-email" placeholder="email@exemplo.com" />
-        </div>
-        <div class="form-actions">
-          <button class="btn btn-primary" id="btn-salvar-barbeiro">Salvar</button>
-          <button class="btn btn-ghost" id="btn-cancelar-barbeiro">Cancelar</button>
-        </div>
-        <input type="hidden" id="b-id" />
-      </div>
-
-      <div id="lista-barbeiros" class="card-list">
-        <p class="loading-txt">Carregando...</p>
-      </div>
-    </section>
-
-  </main>
-
-  <div class="toast" id="toast"></div>
-
-  <div class="modal-overlay" id="modal-overlay" style="display:none">
-    <div class="modal">
-      <p id="modal-msg">Confirmar exclusão?</p>
-      <div class="modal-actions">
-        <button class="btn btn-danger" id="modal-confirm">Excluir</button>
-        <button class="btn btn-ghost" id="modal-cancel">Cancelar</button>
-      </div>
+      <a href="cliente.html" class="btn btn-ghost btn-full">📅 Ver agenda como cliente</a>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <div class="toast" id="toast"></div>
+  <script src="auth.js"></script>
 </body>
 </html>
