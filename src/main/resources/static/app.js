@@ -2,7 +2,7 @@
    app.js — utilitários compartilhados entre todas as páginas
    ============================================================ */
 
-const API = 'http://localhost:9090';
+const API = '';
 
 // ── Fetch wrapper ──────────────────────────────────────────────
 async function apiFetch(path, options = {}) {
