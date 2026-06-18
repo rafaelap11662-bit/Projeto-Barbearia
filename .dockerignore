@@ -1,0 +1,14 @@
+# Arquivos que NAO devem ir para o contexto de build do Docker.
+# Deixa o build mais rapido e a imagem mais limpa.
+target/
+.git
+.gitignore
+.idea
+*.iml
+.vscode
+.mvn/wrapper/maven-wrapper.jar
+HELP.md
+*.md
+Dockerfile
+docker-compose.yml
+.dockerignore
