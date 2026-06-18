@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod 400 academy-rsa.pem)",
+      "Bash(ssh -i academy-rsa.pem -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes ubuntu@ec2-35-90-60-73.us-west-2.compute.amazonaws.com 'echo SSH_OK; echo \"--- mem ---\"; free -h; echo \"--- swap ---\"; swapon --show; echo \"--- oom kills ---\"; sudo dmesg 2>/dev/null | grep -i \"killed process\" | tail -5')",
+      "Bash(ssh -i academy-rsa.pem -o StrictHostKeyChecking=no ubuntu@ec2-35-90-60-73.us-west-2.compute.amazonaws.com ' *)",
+      "Bash(rsync -avz -e 'ssh -i academy-rsa.pem -o StrictHostKeyChecking=no' --exclude .git --exclude target --exclude *.pem ./docker-compose.yml ubuntu@ec2-35-90-60-73.us-west-2.compute.amazonaws.com:~/Projeto-Barbearia/docker-compose.yml)"
+    ]
+  }
+}
