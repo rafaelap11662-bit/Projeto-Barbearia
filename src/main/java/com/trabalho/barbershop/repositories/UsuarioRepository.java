@@ -5,5 +5,6 @@ import com.trabalho.barbershop.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByTelefone(String telefone); 
+    Optional<Usuario> findByEmail(String email);
 
 }
