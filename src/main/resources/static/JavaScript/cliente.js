@@ -6,15 +6,6 @@ let barbeiroPick = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  const usuario = getUsuario();
-  if (!usuario || usuario.tipoUsuario !== 'CLIENTE') {
-    window.location.href = 'index.html';
-    return;
-  }
-
-  document.getElementById('user-name').textContent = usuario.nome;
-  document.getElementById('btn-logout').addEventListener('click', logout);
-
   const hoje = new Date().toISOString().split('T')[0];
   const dataInput = document.getElementById('data');
   dataInput.min   = hoje;
@@ -77,10 +68,11 @@ async function carregarBarbeiros() {
   }
 }
 
+
 async function enviarAgendamento(e) {
   e.preventDefault();
 
-  const nome       = document.getElementById('nomeCliente').value.trim();
+  const nome       = document.getElementById('nomeCliente').value.trim(); 
   const telefone   = document.getElementById('telefoneCliente').value.trim();
   const data       = document.getElementById('data').value;
   const horario    = document.getElementById('horario').value;
@@ -106,7 +98,7 @@ async function enviarAgendamento(e) {
         servicosIds,
       }),
     });
-
+    
     const nomeBarbeiro = document.querySelector('.barbeiro-card-check.selected .bc-nome')?.textContent ?? '';
     document.getElementById('confirm-msg').textContent =
       `${nome}, seu horário com ${nomeBarbeiro} está marcado para ${formatDate(data)} às ${horario}.`;

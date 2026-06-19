@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbearia — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../CSS/style.css" />
+</head>
+<body class="login-body">
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-icon">✂</span>
+        <span class="logo-text">BarberShop</span>
+      </div>
+      <p class="login-sub">Acesso para barbeiros e administradores</p>
+
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <div class="input-pw">
+          <input type="password" id="login-senha" placeholder="••••••••" />
+          <button class="pw-toggle" id="pw-toggle" type="button">👁</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="btn-login">Entrar</button>
+
+      <div class="login-divider">ou</div>
+
+      <a href="../index.html" class="btn btn-ghost btn-full">📅 Ver agenda como cliente</a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="../JavaScript/app.js"></script>
+  <script src="../JavaScript/auth.js"></script>
+</body>
+</html>

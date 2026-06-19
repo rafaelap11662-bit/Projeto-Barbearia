@@ -16,7 +16,7 @@ async function apiFetch(path, options = {}) {
     ...options,
   });
   if (res.status === 204) return null;
-  if (res.status === 401) { logout(); return; }
+  if (res.status === 401) { throw new Error("Não autorizado");} //
   const data = await res.json().catch(() => null);
   if (!res.ok) throw new Error(data?.message || data?.error || `Erro ${res.status}`);
   return data;
@@ -100,7 +100,7 @@ function getUsuario() {
 
 function logout() {
   sessionStorage.clear();
-  window.location.href = 'index.html';
+  window.location.href = '../HTML/login.html';
 }
 
 // ── Serviços (checkboxes compartilhado) ───────────────────────

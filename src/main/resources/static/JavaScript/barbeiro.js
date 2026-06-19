@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Guard: apenas BARBEIRO
   usuarioLogado = getUsuario();
   if (!usuarioLogado || usuarioLogado.tipoUsuario !== 'BARBEIRO') {
-    window.location.href = 'index.html';
+    window.location.href = '../HTML/index.html';
     return;
   }
 

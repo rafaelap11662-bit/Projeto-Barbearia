@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Guard: apenas ADMINISTRADOR
   const usuario = getUsuario();
   if (!usuario || usuario.tipoUsuario !== 'ADMINISTRADOR') {
-    window.location.href = 'index.html';
+    window.location.href = '../HTML/index.html';
     return;
   }
 
