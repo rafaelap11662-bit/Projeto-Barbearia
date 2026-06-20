@@ -184,10 +184,39 @@ async function loadBarbeiros() {
 
 // ── SERVIÇOS ───────────────────────────────────────────────────
 document.getElementById('btn-novo-servico').addEventListener('click', () => {
-  ['s-id','s-nome','s-preco','s-duracao','s-descricao'].forEach(id => document.getElementById(id).value = '');
+  ['s-id','s-nome','s-preco','s-duracao','s-descricao','s-imagem'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('s-imagem-file').value = '';
+  document.getElementById('s-imagem-preview').style.display = 'none';
   document.getElementById('form-servico-title').textContent = 'Novo Serviço';
   document.getElementById('form-servico-wrap').style.display = 'block';
   document.getElementById('s-nome').focus();
+});
+
+document.getElementById('s-imagem-file').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const preview = document.getElementById('s-imagem-preview');
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const token = sessionStorage.getItem('token');
+    const res = await fetch(API + '/upload', {
+      method: 'POST',
+      headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+      body: formData,
+    });
+    if (!res.ok) throw new Error('Falha no upload');
+    const data = await res.json();
+    document.getElementById('s-imagem').value = data.url;
+    showToast('Imagem enviada!', 'success');
+  } catch (err) {
+    showToast('Erro ao enviar imagem: ' + err.message, 'error');
+  }
 });
 
 document.getElementById('btn-cancelar-servico').addEventListener('click', () => {
@@ -201,6 +230,7 @@ document.getElementById('btn-salvar-servico').addEventListener('click', async ()
     preco:     parseFloat(document.getElementById('s-preco').value),
     duracao:   parseInt(document.getElementById('s-duracao').value),
     descricao: document.getElementById('s-descricao').value.trim(),
+    imagemUrl: document.getElementById('s-imagem').value.trim(),
   };
   if (!body.nome || isNaN(body.preco) || isNaN(body.duracao)) {
     showToast('Preencha nome, preço e duração.', 'error'); return;
@@ -244,11 +274,17 @@ async function loadServicos() {
     el.querySelectorAll('.btn-icon.edit').forEach(btn => {
       btn.addEventListener('click', async () => {
         const s = await apiFetch(`/servicos/${btn.dataset.id}`);
-        document.getElementById('s-id').value       = s.id;
-        document.getElementById('s-nome').value     = s.nome;
-        document.getElementById('s-preco').value    = s.preco;
-        document.getElementById('s-duracao').value  = s.duracao;
+        document.getElementById('s-id').value        = s.id;
+        document.getElementById('s-nome').value      = s.nome;
+        document.getElementById('s-preco').value     = s.preco;
+        document.getElementById('s-duracao').value   = s.duracao;
         document.getElementById('s-descricao').value = s.descricao || '';
+        document.getElementById('s-imagem').value    = s.imagemUrl || '';
+
+        const preview = document.getElementById('s-imagem-preview');
+        if (s.imagemUrl) { preview.src = s.imagemUrl; preview.style.display = 'block'; }
+        else { preview.style.display = 'none'; }
+
         document.getElementById('form-servico-title').textContent = 'Editar Serviço';
         document.getElementById('form-servico-wrap').style.display = 'block';
         document.getElementById('s-nome').focus();

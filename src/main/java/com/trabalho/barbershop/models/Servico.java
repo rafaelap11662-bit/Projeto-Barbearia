@@ -1,6 +1,7 @@
 package com.trabalho.barbershop.models;
 import java.io.Serial;
 import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,24 +21,19 @@ public class Servico implements Serializable {
         private String descricao;       // descrição do serviço
         private Double preco;           // preço em reais
         private Integer duracao;        // duração em minutos
+        private String imagemUrl;       // foto ilustrativa do serviço (catálogo)
 
-
-    // Construtor padrão necessário para o JPA
     public Servico() {
     }
 
-
-    // Construtor para criar um serviço com os campos obrigatórios
-    public Servico(String nome, String descricao, Double preco, Integer duracao) {
+    public Servico(String nome, String descricao, Double preco, Integer duracao, String imagemUrl) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.duracao = duracao;
+        this.imagemUrl = imagemUrl;
     }
 
-
-   
-    
     public Long getId() {
         return id;
     }
@@ -77,9 +73,15 @@ public class Servico implements Serializable {
     public void setDuracao(Integer duracao) {
         this.duracao = duracao;
     }
-    
 
-    
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0; 
@@ -90,6 +92,3 @@ public class Servico implements Serializable {
             return super.equals(obj);
     }
 }
-
-
-    

@@ -1,6 +1,7 @@
 package com.trabalho.barbershop.dto;
 import java.io.Serial;
 import java.io.Serializable;
+
 import com.trabalho.barbershop.models.Servico;
 
 public class ServicoResponseDTO implements Serializable {
@@ -12,6 +13,7 @@ public class ServicoResponseDTO implements Serializable {
     private String descricao;       // descrição do serviço
     private Double preco;           // preço em reais
     private Integer duracao;        // duração em minutos
+    private String imagemUrl;
 
     public ServicoResponseDTO() {
     }
@@ -22,6 +24,7 @@ public class ServicoResponseDTO implements Serializable {
         descricao = servico.getDescricao();
         preco = servico.getPreco();
         duracao = servico.getDuracao();
+        imagemUrl = servico.getImagemUrl();
     }
 
     public Long getId() {
@@ -62,5 +65,13 @@ public class ServicoResponseDTO implements Serializable {
 
     public void setDuracao(Integer duracao) {
         this.duracao = duracao;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 }

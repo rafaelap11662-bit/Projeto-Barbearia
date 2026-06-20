@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbearia — Catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../CSS/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">✂</span>
+        <span class="logo-text">BarberShop</span>
+      </div>
+      <div class="header-right">
+        <a href="../index.html" class="btn btn-ghost btn-sm">📅 Agendar</a>
+        <a href="login.html" class="btn btn-primary btn-sm">🔒 Área Restrita</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="page-catalogo">
+      <div class="page-header">
+        <h1>Catálogo de Estilos</h1>
+        <p>Veja os cortes e serviços disponíveis antes de agendar</p>
+      </div>
+
+      <div class="catalogo-grid" id="catalogo-grid">
+        <p class="loading-txt">Carregando catálogo...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de detalhe -->
+  <div class="modal-overlay" id="corte-modal-overlay" style="display:none">
+    <div class="modal" id="corte-modal-content"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="../JavaScript/app.js"></script>
+  <script src="../JavaScript/catalogo.js"></script>
+</body>
+</html>

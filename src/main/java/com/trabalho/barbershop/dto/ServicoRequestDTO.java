@@ -6,6 +6,7 @@ public class ServicoRequestDTO {
     private String descricao;       // descrição do serviço
     private Double preco;           // preço em reais
     private Integer duracao;        // duração em minutos
+    private String imagemUrl;       // foto ilustrativa do serviço (catálogo)
 
     public ServicoRequestDTO() {
     }
@@ -47,5 +48,13 @@ public class ServicoRequestDTO {
 
     public void setDuracao(Integer duracao) {
         this.duracao = duracao;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 }

@@ -541,3 +541,54 @@ select {
 
 .empty-state { text-align: center; padding: 48px 0; color: var(--muted); }
 .empty-state .empty-icon { font-size: 36px; margin-bottom: 12px; }
+
+.imagem-preview {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+/* Catálogo */
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.catalogo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+  animation: fadeUp .3s ease both;
+}
+
+.catalogo-card:hover { transform: translateY(-3px); border-color: var(--gold-dim); }
+
+.catalogo-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--surface2);
+  display: block;
+}
+
+.catalogo-card-img.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--muted);
+}
+
+.catalogo-card-body { padding: 12px 14px; }
+.catalogo-card-nome { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.catalogo-card-preco { font-size: 13px; color: var(--gold); }
+.catalogo-card-duracao { font-size: 12px; color: var(--muted); }

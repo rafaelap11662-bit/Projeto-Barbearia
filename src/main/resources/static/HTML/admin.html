@@ -99,6 +99,12 @@
           <div class="form-group"><label>Duração (min)</label><input type="number" id="s-duracao" placeholder="30" min="1" /></div>
           <div class="form-group"><label>Descrição</label><input type="text" id="s-descricao" placeholder="Descrição opcional" /></div>
         </div>
+        <div class="form-group">
+          <label>Foto do estilo</label>
+          <input type="file" id="s-imagem-file" accept="image/*" />
+          <img id="s-imagem-preview" class="imagem-preview" style="display:none" />
+          <input type="hidden" id="s-imagem" />
+        </div>
         <div class="form-actions">
           <button class="btn btn-primary" id="btn-salvar-servico">Salvar</button>
           <button class="btn btn-ghost" id="btn-cancelar-servico">Cancelar</button>
