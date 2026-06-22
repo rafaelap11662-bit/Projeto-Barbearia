@@ -20,4 +20,6 @@ boolean existsByUsuarioAndDataAndHorarioAndIdNot(
 );
 
     List<Agendamento> findByData(String data);
+
+    List<Agendamento> findByTelefoneCliente(String telefoneCliente);
 }

@@ -4,6 +4,12 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  
+  //chama a funcao da mascara do telefone em app.js
+  const telefone = document.getElementById('telefoneCliente');
+  if (telefone) {
+    aplicarMascaraTelefone(telefone);
+  }
   // Guard: apenas ADMINISTRADOR
   const usuario = getUsuario();
   if (!usuario || usuario.tipoUsuario !== 'ADMINISTRADOR') {
@@ -55,6 +61,10 @@ async function loadAgendamentos() {
           <div class="item-card-sub">
             ${formatDate(a.data)} às ${a.horario}
             &nbsp;·&nbsp; ${a.usuario?.nome ?? '—'}
+          </div>
+
+          <div class="item-card-sub">
+            Corte: ${a.servicos?.join(', ') ?? 'Não informado'}
           </div>
           <span class="badge">${a.clienteTelefone}</span>
         </div>
@@ -127,7 +137,7 @@ function limparFormBarbeiro() {
   document.getElementById('b-tipo').value = 'BARBEIRO';
 }
 
-async function loadBarbeiros() {
+async function loadBarbeiros() { //Editar campos
   const el = document.getElementById('lista-barbeiros');
   el.innerHTML = '<p class="loading-txt">Carregando...</p>';
   try {
@@ -143,9 +153,14 @@ async function loadBarbeiros() {
           <div class="item-card-sub">${b.email} &nbsp;·&nbsp; ${b.telefone}</div>
           <span class="badge">${b.tipoUsuario ?? 'BARBEIRO'}</span>
         </div>
-        <div class="item-card-actions">
+        <div class="item-card-actions"> 
+          ${b.tipoUsuario !== 'ADMINISTRADOR' ? ` 
           <button class="btn btn-icon edit" title="Editar" data-id="${b.id}">✏️</button>
-          <button class="btn btn-icon del"  title="Excluir" data-id="${b.id}">🗑</button>
+          ` : ''}
+
+          ${b.tipoUsuario !== 'ADMINISTRADOR' ? `
+            <button class="btn btn-icon del" title="Excluir" data-id="${b.id}">🗑</button>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -307,7 +322,7 @@ async function initFormAgendamento() {
   form.onsubmit = async (e) => {
     e.preventDefault();
     const nome       = document.getElementById('nomeCliente').value.trim();
-    const telefone   = document.getElementById('telefoneCliente').value.trim();
+    const telefone   = document.getElementById('telefoneCliente').value.replace(/\D/g, '');
     const data       = dataInput.value;
     const horario    = document.getElementById('horario').value;
     const barbeiroId = document.getElementById('barbeiroId').value;

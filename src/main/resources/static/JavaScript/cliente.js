@@ -6,6 +6,12 @@ let barbeiroPick = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+  //chama a funcao da mascara em app.js
+  const telefone = document.getElementById('telefoneCliente');
+  if (telefone) {
+    aplicarMascaraTelefone(telefone);
+  }
+
   const hoje = new Date().toISOString().split('T')[0];
   const dataInput = document.getElementById('data');
   dataInput.min   = hoje;
@@ -73,7 +79,7 @@ async function enviarAgendamento(e) {
   e.preventDefault();
 
   const nome       = document.getElementById('nomeCliente').value.trim(); 
-  const telefone   = document.getElementById('telefoneCliente').value.trim();
+  const telefone = document.getElementById('telefoneCliente').value.replace(/\D/g, '');
   const data       = document.getElementById('data').value;
   const horario    = document.getElementById('horario').value;
   const servicosIds = [...document.querySelectorAll('#servicos-grid input:checked')].map(cb => Number(cb.value));

@@ -140,4 +140,8 @@ public class AgendamentoService {
 
     return horarios;
 }
+    
+public List<AgendamentoResponseDTO> buscarPorTelefone(String telefone) {
+    return agendamentoRepository.findByTelefoneCliente(telefone).stream().map(AgendamentoResponseDTO::new).toList();
+}
 }

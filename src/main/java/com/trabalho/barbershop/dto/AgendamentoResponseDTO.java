@@ -1,6 +1,9 @@
 package com.trabalho.barbershop.dto;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.trabalho.barbershop.models.Agendamento;
 
@@ -9,17 +12,20 @@ public class AgendamentoResponseDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;                        // identificador único do agendamento
+    private Long id;
     private String data;
-    private String horario;                 // data e hora do agendamento
-    private String clienteNome;             // nome do cliente
-    private String clienteTelefone;         // telefone do cliente
-    private UsuarioResponseDTO usuario;   // informações do barbeiro
-    
+    private String horario;
+    private String clienteNome;
+    private String clienteTelefone;
+    private UsuarioResponseDTO usuario;
+
+    // NOVO
+    private List<String> servicos;
+
     public AgendamentoResponseDTO() {
     }
-    
-    public AgendamentoResponseDTO(Agendamento agendamento) { 
+
+    public AgendamentoResponseDTO(Agendamento agendamento) {
         this.id = agendamento.getId();
         this.data = agendamento.getData().toString();
         this.horario = agendamento.getHorario().toString();
@@ -27,6 +33,14 @@ public class AgendamentoResponseDTO implements Serializable {
         this.clienteTelefone = agendamento.getTelefoneCliente();
         if (agendamento.getUsuario() != null) {
             this.usuario = new UsuarioResponseDTO(agendamento.getUsuario());
+        }
+
+        
+        if (agendamento.getServicos() != null) {
+            this.servicos = agendamento.getServicos()
+                    .stream()
+                    .map(servico -> servico.getNome())
+                    .collect(Collectors.toList());
         }
     }
 
@@ -78,9 +92,16 @@ public class AgendamentoResponseDTO implements Serializable {
         return usuario;
     }
 
-
     public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
     }
 
+    // NOVO
+    public List<String> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<String> servicos) {
+        this.servicos = servicos;
+    }
 }

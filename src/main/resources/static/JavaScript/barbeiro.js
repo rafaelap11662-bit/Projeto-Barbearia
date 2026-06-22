@@ -6,6 +6,12 @@
 let usuarioLogado = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+  
+  //chamar função de mascara de telefone me app.js
+  const telefone = document.getElementById('telefoneCliente');
+  if (telefone) {
+    aplicarMascaraTelefone(telefone);
+  }
   // Guard: apenas BARBEIRO
   usuarioLogado = getUsuario();
   if (!usuarioLogado || usuarioLogado.tipoUsuario !== 'BARBEIRO') {
@@ -37,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function setupNavCallback() {
+function setupNavCallback() { //serve
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -74,7 +80,12 @@ async function loadMinhaAgenda(data) {
       <div class="item-card">
         <div class="item-card-body">
           <div class="item-card-title">${a.clienteNome}</div>
-          <div class="item-card-sub">${formatDate(a.data)} às ${a.horario}</div>
+          <div class="item-card-sub">
+            ${formatDate(a.data)} às ${a.horario}
+          </div>
+          <div class="item-card-sub">
+            Corte: ${a.servicos?.join(', ') ?? 'Não informado'}
+          </div>
           <span class="badge">${a.clienteTelefone}</span>
         </div>
         <div class="item-card-actions">
@@ -120,7 +131,7 @@ async function initFormAgendamento() {
   form.onsubmit = async (e) => {
     e.preventDefault();
     const nome      = document.getElementById('nomeCliente').value.trim();
-    const telefone  = document.getElementById('telefoneCliente').value.trim();
+    const telefone  = document.getElementById('telefoneCliente').value.replace(/\D/g, '');
     const data      = dataInput.value;
     const horario   = document.getElementById('horario').value;
     const servicosIds = [...document.querySelectorAll('#servicos-grid input:checked')].map(cb => Number(cb.value));

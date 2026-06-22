@@ -57,4 +57,12 @@ public class AgendamentoController {
         return ResponseEntity.ok(horarios);
     }
 
+    @GetMapping("/telefone/{telefone}")
+        public ResponseEntity<List<AgendamentoResponseDTO>> buscarPorTelefone(
+        @PathVariable String telefone) {
+
+        return ResponseEntity.ok(
+            service.buscarPorTelefone(telefone));
+    }
+
 }

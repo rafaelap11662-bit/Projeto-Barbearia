@@ -123,9 +123,19 @@ async function carregarServicosCheck(gridId) {
 
     grid.querySelectorAll('.servico-card-check').forEach(card => {
       card.addEventListener('click', () => {
+
+        // desmarca todos
+        grid.querySelectorAll('.servico-card-check').forEach(c => {
+          const cb = c.querySelector('input[type="checkbox"]');
+          cb.checked = false;
+          c.classList.remove('checked');
+        });
+
+        // marca apenas o clicado
         const cb = card.querySelector('input[type="checkbox"]');
-        cb.checked = !cb.checked;
-        card.classList.toggle('checked', cb.checked);
+        cb.checked = true;
+        card.classList.add('checked');
+
         updateResumo(gridId);
       });
     });
@@ -166,3 +176,17 @@ async function carregarHorarios(data, barbeiroId) {
     sel.innerHTML = '<option value="">Erro ao carregar horários</option>';
   }
 }
+
+function aplicarMascaraTelefone(input) {
+      input.addEventListener('input', (e) => {
+
+          let valor = e.target.value.replace(/\D/g, '');
+
+          valor = valor.replace(/^(\d{2})(\d)/, '($1) $2');
+          valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+
+          e.target.value = valor.substring(0, 15);
+
+      });
+
+  }
