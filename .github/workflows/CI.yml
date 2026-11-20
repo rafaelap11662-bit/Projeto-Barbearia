@@ -15,17 +15,37 @@ permissions:
 
 jobs:
 
-  # JOB 1 - EXECUÇÃO DOS TESTES UNITÁRIOS
+  # JOB 1 - TESTES UNITARIOS
   test:
     name: Testes Unitários
     runs-on: ubuntu-latest
 
+    # Banco MySQL temporário para os testes
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: barbershop
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/barbershop?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
     steps:
       - name: Baixar código do repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configurar Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -37,14 +57,14 @@ jobs:
       - name: Executar testes unitários
         run: ./mvnw -B test
 
-  # JOB 2 - ANALISE ESTATICA DE SEGURANCA
+  # JOB 2 - ANALISE ESTATICA COM SEMGREP
   semgrep:
     name: Análise de Segurança - Semgrep
     runs-on: ubuntu-latest
 
     steps:
       - name: Baixar código do repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Instalar Semgrep
         run: pip install semgrep
