@@ -6,7 +6,7 @@ import com.trabalho.barbershop.models.Usuario;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
     
-    boolean existsByUsuarioAndDataAndHorario(
+    boolean existsByUsuarioAndDataAndHorario( 
     Usuario usuario,
     String data,
     String horario

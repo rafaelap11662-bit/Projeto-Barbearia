@@ -1,0 +1,53 @@
+
+name: CI - Barbershop
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+
+  # JOB 1 - EXECUÇÃO DOS TESTES UNITÁRIOS
+  test:
+    name: Testes Unitários
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Dar permissão ao Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Executar testes unitários
+        run: ./mvnw -B test
+
+  # JOB 2 - ANALISE ESTATICA DE SEGURANCA
+  semgrep:
+    name: Análise de Segurança - Semgrep
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Semgrep
+        run: pip install semgrep
+
+      - name: Analisar código Java
+        run: semgrep scan --config p/java --severity ERROR --error .

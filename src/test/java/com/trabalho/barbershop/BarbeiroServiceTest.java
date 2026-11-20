@@ -32,6 +32,7 @@ class BarbeiroServiceTest {
         dto.setNome("Rafael"); 
         dto.setTelefone("43999999999");
         dto.setEmail("rafael@gmail.com");
+        dto.setSenha("123456");
 
         Usuario barbeiro = new Usuario();  
         barbeiro.setNome(dto.getNome()); 

@@ -6,9 +6,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   
   //chama a funcao da mascara do telefone em app.js
-  const telefone = document.getElementById('telefoneCliente');
-  if (telefone) {
-    aplicarMascaraTelefone(telefone);
+  const telefoneClient = document.getElementById('telefoneCliente');
+  if (telefoneCliente) {
+    aplicarMascaraTelefone(telefoneCliente);
   }
   // Guard: apenas ADMINISTRADOR
   const usuario = getUsuario();
