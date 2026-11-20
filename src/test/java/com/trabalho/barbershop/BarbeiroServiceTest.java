@@ -48,7 +48,7 @@ class BarbeiroServiceTest {
 
         // ASSERT
         assertThat(response).isNotNull();  
-        assertThat(response.getNome()).isEqualTo("Rafaell"); 
+        assertThat(response.getNome()).isEqualTo("Rafael"); 
     }
 
 
